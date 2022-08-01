@@ -27,6 +27,7 @@
         <a href="/dashboard" class="btn btn-primary" id="course-edit">Edit Course</a>
       @endif
     @endif
+    @if(!$hasUserJoined)
     <form action="/courses/join/{{ $course->id }}" method="POST">
       @csrf
       <a href="/courses/join/{{ $course->id }}" 
@@ -37,6 +38,11 @@
         Join course
       </a>
     </form>
+    @else
+    <a href="/dashboard">
+      <button class="btn btn-primary">You already are in this course</button>
+    </a>
+    @endif
     <h3>Course level: </h3>
     <ul id="items-list">
       @foreach($course->items as $item)

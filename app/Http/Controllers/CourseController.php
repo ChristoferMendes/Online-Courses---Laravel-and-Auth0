@@ -125,8 +125,20 @@ class CourseController extends Controller
  public function show($id){
     $course = Course::findOrFail($id);
     $courseOwner = User::where("id", $course->user_id)->first()->toArray();
-    
-    return view("courses.show", ["course" => $course, "courseOwner" => $courseOwner]);
+
+    $userAuth = Auth::user();
+    $myUser = User::where("email", $userAuth->email)->first();
+
+    $userCourses = $myUser->coursesAsParticipant;
+    $hasUserJoined = false;
+
+    foreach($userCourses as $userCourse){
+        if($userCourse['id'] == $id){
+            $hasUserJoined = true;
+        }
+    }
+
+    return view("courses.show", ["course" => $course, "courseOwner" => $courseOwner, "hasUserJoined" => $hasUserJoined]);
     
  }
 
@@ -200,5 +212,17 @@ class CourseController extends Controller
         }
         $myUser->coursesAsParticipant()->attach($id);
         return redirect('/dashboard')->with('msg', 'Your presence is confirmed in: ' . $course->title);
+    }
+
+
+    public function leaveCourse($id){
+
+        $userAuth = Auth::user();
+        $myUser = User::where("email", $userAuth->email)->first();
+
+        $course = Course::findOrFail($id);
+
+        $myUser->coursesAsParticipant()->detach($id);
+        return redirect('/dashboard')->with('msg', 'You leave with succes the: ' . $course->title);
     }
 }

@@ -26,7 +26,7 @@
           <td>{{ count($course->users )}}</td>
           <td>
             <a href="/courses/edit/{{ $course->id }}" class="btn btn-info edit-btn"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-            <form action="/courses/{{ $course->id }}" method="POST">
+            <form action="/courses/{{ $course->id }}" method="POST" class="own-courses">
               @csrf
               @method("DELETE")
               <button type="submit" class="btn btn-danger delete-btn"><i class="fa-solid fa-pen-to-square"></i> Delete</button>
@@ -61,7 +61,14 @@
         <td><a href="/courses/{{ $course->id }}">{{ $course->title }}</a></td>
         <td>{{ count($course->users )}}</td>
         <td>
-          <a href="#">Leave Event</a>
+          <form action="/courses/leave/{{ $course->id }}" method="POST">
+            @csrf
+            @method("DELETE")
+            <button type="submit" class="btn btn-danger delete-btn" id="leave-course">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              Leave course
+            </button>
+          </form>
         </td>
       </tr>
     @endforeach

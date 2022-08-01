@@ -58,3 +58,6 @@ Route::put('/courses/update/{id}', [CourseController::class, 'update'])->middlew
 
 //Many to Many
 Route::post("/courses/join/{id}", [CourseController::class, 'joinCourse'])->middleware(["auth0.authenticate"]);
+
+//Leaving course route
+Route::delete("courses/leave/{id}", [CourseController::class, "leaveCourse"])->middleware(["auth0.authenticate"]);
