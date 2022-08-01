@@ -135,8 +135,9 @@ class CourseController extends Controller
     $myUser = User::where("email", $userAuth->email)->first();
 
     $courses = $myUser->courses;
+    $coursesAsParticipant = $myUser->coursesAsParticipant;
 
-    return view("courses.dashboard", ["courses" => $courses]);
+    return view("courses.dashboard", ["courses" => $courses, "coursesasparticipant" => $coursesAsParticipant]);
 
  }
 
@@ -178,4 +179,20 @@ class CourseController extends Controller
 
     
  }
+
+ public function joinCourse($id){
+
+    $userAuth = Auth::user();
+    $myUser = User::where("email", $userAuth->email)->first();
+
+    $course = Course::findOrFail($id);
+
+    foreach($course->users as $participant){
+        if($participant->id == $myUser->id){
+            return redirect("/dashboard")->with("msg", "You are already in the: " . $course->title);
+            }
+        }
+        $myUser->coursesAsParticipant()->attach($id);
+        return redirect('/dashboard')->with('msg', 'Your presence is confirmed in: ' . $course->title);
+    }
 }

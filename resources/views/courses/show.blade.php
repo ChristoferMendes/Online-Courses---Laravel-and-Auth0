@@ -18,7 +18,7 @@
       </p>
       <p class="course-participants"><i class="fa-solid fa-users fa-flip" style="--fa-animation-iteration-count: 1; --fa-animation-duration: 3s;"></i> 
       
-        x Users
+        Participants: {{ count($course->users) }}
       
     </p>
     <p class="course-owner"> Owner Name: {{$courseOwner['name'] }}</p>
@@ -27,7 +27,16 @@
         <a href="/dashboard" class="btn btn-primary" id="course-edit">Edit Course</a>
       @endif
     @endif
-    <a href="#" class="btn btn-primary" id="course-submit">Join course</a>
+    <form action="/courses/join/{{ $course->id }}" method="POST">
+      @csrf
+      <a href="/courses/join/{{ $course->id }}" 
+        class="btn btn-primary" 
+        id="course-submit"
+        onclick="event.preventDefault();
+        this.closest('form').submit();">
+        Join course
+      </a>
+    </form>
     <h3>Course level: </h3>
     <ul id="items-list">
       @foreach($course->items as $item)

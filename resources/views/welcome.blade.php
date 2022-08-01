@@ -29,7 +29,7 @@
                                                 {{-- Here I replace the original "01-30-2022" for "01/30/2022" and also replace Y-m-D to m-d-Y! --}}
                     <p class="card-date">Created at: {{ $course->created_at->format("m/d/Y") }}</p>
                     <h5 class="card-title"> {{ $course->title }}</h5>
-                    <p class="card-participants">x Users</p>
+                    <p class="card-participants">Participants: {{ count($course->users) }}</p>
                     <a href="/courses/{{ $course->id }}" class="btn btn-primary">More</a>
                 </div>
             </div>

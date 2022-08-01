@@ -53,5 +53,8 @@ Route::delete("/courses/{id}", [CourseController::class, "destroy"])->middleware
 //Edit 
 Route::get("/dashboard", [CourseController::class, "dashboard"])->middleware(["auth0.authenticate"]);
 
-Route::get("/courses/edit/{id}", [CourseController::class, "edit"]);
-Route::put('/courses/update/{id}', [CourseController::class, 'update']);
+Route::get("/courses/edit/{id}", [CourseController::class, "edit"])->middleware(["auth0.authenticate"]);
+Route::put('/courses/update/{id}', [CourseController::class, 'update'])->middleware(["auth0.authenticate"]);
+
+//Many to Many
+Route::post("/courses/join/{id}", [CourseController::class, 'joinCourse'])->middleware(["auth0.authenticate"]);
