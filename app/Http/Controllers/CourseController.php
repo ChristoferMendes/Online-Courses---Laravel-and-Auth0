@@ -15,6 +15,19 @@ class CourseController extends Controller
         $user = Auth::user();
         $search = request("search");
 
+       
+        if(Auth::check()){
+            $userAuth = Auth::user();
+            $users = User::where("email", $userAuth->email)->first();
+
+            if(!$users){
+                $user = new User;
+                $user->name = Auth::user()->nickname;
+                $user->email = Auth::user()->email;
+                $user->save();
+            }
+        }
+        
         if($search){
             $courses = Course::where([
                 ["title", "like", "%" .$search. "%"]
@@ -31,39 +44,14 @@ class CourseController extends Controller
   }
 
   public function courses(){
-
-       
-
-
     $courses = Course::all();
-
-     //$courses = Course::orderBy("title", "desc")->get();
-     //$modules = Course::where("id", 1)->get();
-     //$courses = Course::latest()->get();
-     return view("courses.view", [
+    return view("courses.view", [
       "courses"=>$courses
      ]);
  }
 
  public function create(){
-    
-    $userAuth = Auth::user();
-    $users = User::where("email", $userAuth->email)->first();
-   
-   
-    if(!$users){
-        $user = new User;
-        $user->name = Auth::user()->nickname;
-        $user->email = Auth::user()->email;
-        $user->save();
-    }else{
-        
-        
-    }
-    
      return view("courses.create");
-
-
  }
 
  public function login(){
