@@ -151,6 +151,12 @@ class CourseController extends Controller
  public function edit($id){
     $course = Course::findOrFail($id);
 
+    $userAuth = Auth::user();
+    $myUser = User::where("email", $userAuth->email)->first();
+
+    if($myUser->id != $course->user_id){
+        return redirect("/dashboard");
+    }
     return view("courses.edit", compact("course"));
  }
 
