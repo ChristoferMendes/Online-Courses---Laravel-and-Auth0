@@ -24,14 +24,20 @@
           <td scope="row">{{ $loop->index + 1 }}</td>
           <td><a href="/courses/{{ $course->id }}">{{ $course->title }}</a></td>
           <td>0</td>
-          <td><a href="#">Edit</a><a href="#">Delete</a></td>
-
+          <td>
+            <a href="/courses/edit/{{ $course->id }}" class="btn btn-info edit-btn"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+            <form action="/courses/{{ $course->id }}" method="POST">
+              @csrf
+              @method("DELETE")
+              <button type="submit" class="btn btn-danger delete-btn"><i class="fa-solid fa-pen-to-square"></i> Delete</button>
+            </form>
+          </td>
         </tr>
       @endforeach
     </tbody>
   </table>
   @else
-  <p>You don't have any courses yet, <a href="/courses/create">Create Event</a></p>
+  <p>You don't have any courses yet. <a href="/courses/create">Create an Event</a></p>
   @endif
 </div>
 

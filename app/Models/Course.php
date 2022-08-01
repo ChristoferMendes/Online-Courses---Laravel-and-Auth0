@@ -15,10 +15,17 @@ class Course extends Model
     ];
 
     protected $fillable = [
+        'title',
+        'descriptions',
+        'items',
+        'image',
         'user_id'
+        
     ];
+
 
     public function user(){
         return $this->belongsTo("App\Models\User"); 
     }
+
 }

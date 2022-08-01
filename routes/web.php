@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,11 +42,16 @@ Route::get('/required', function () {
 Route::get("/", [CourseController::class, "index"]);
 
 Route::get("/courses/view", [CourseController::class, "courses"]);
-Route::get('/courses/create', [CourseController::class, "create"]);
+Route::get('/courses/create', [CourseController::class, "create"])->middleware(["auth0.authenticate"]);
 Route::get('/courses/{id}', [CourseController::class, "show"]);
 
 Route::get("/dashboard", [CourseController::class, "dashboard"])->middleware(['auth0.authenticate']);
 //Post method
 Route::post("/courses/create", [CourseController::class, "store"]);
+//Delete
+Route::delete("/courses/{id}", [CourseController::class, "destroy"])->middleware(["auth0.authenticate"]);
+//Edit 
+Route::get("/dashboard", [CourseController::class, "dashboard"])->middleware(["auth0.authenticate"]);
 
-
+Route::get("/courses/edit/{id}", [CourseController::class, "edit"]);
+Route::put('/courses/update/{id}', [CourseController::class, 'update']);

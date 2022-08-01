@@ -321,8 +321,16 @@ header{
   width: 25%;
 }
 
+.dashboard-courses-container form{
+  display: inline-block;
+  margin-left: 7%;
+}
 
-
+/* Edit page */
+.img-preview{
+  width: 20%;
+  margin: 5%;
+}
 
 
 /* Footer */

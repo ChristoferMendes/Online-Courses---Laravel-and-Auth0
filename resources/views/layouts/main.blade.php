@@ -61,7 +61,7 @@
               @endauth
               @auth
               <li class="nav-item">
-                <a href="/dashboard" class="nav-link"><i class="fas fa-calendar-plus"></i>My courses</a>
+                <a href="/dashboard" class="nav-link"><i class="fa-solid fa-book-open"></i> My courses</a>
               </li>
               @endauth
               @guest

@@ -53,7 +53,7 @@ class CourseController extends Controller
    
     if(!$users){
         $user = new User;
-        $user->name = Auth::user()->name;
+        $user->name = Auth::user()->nickname;
         $user->email = Auth::user()->email;
         $user->save();
     }else{
@@ -119,7 +119,7 @@ class CourseController extends Controller
     $course->save();
     $goodMsg = "Course created with succes";
 
-    return redirect("/")->with("msg", $goodMsg);
+    return redirect("/dashboard")->with("msg", $goodMsg);
 }
 
  public function show($id){
@@ -138,5 +138,44 @@ class CourseController extends Controller
 
     return view("courses.dashboard", ["courses" => $courses]);
 
+ }
+
+ public function destroy($id){
+
+    Course::findOrFail($id)->delete();
+
+    return redirect("/dashboard")->with("msg", "Course deleted with success");
+ }
+
+ public function edit($id){
+    $course = Course::findOrFail($id);
+
+    return view("courses.edit", compact("course"));
+ }
+
+ public function update(Request $request){
+
+    $data = $request->all();
+
+    if($request->hasfile("image") && $request->file("image")->isValid()){
+
+        $requestImage = $request->image;
+
+        $extension = $requestImage->extension();
+        
+        $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+        
+        $requestImage->move(public_path("img/courses"), $imageName);
+
+        $data['image'] = $imageName;
+    }else{
+        $data['image'] = "event_placeholder.jpg";
+    }
+
+   Course::findOrFail($request->id)->update($data);
+
+    return redirect("/dashboard")->with("msg", "Course " . $request->title . " edited with success");
+
+    
  }
 }
