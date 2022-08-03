@@ -215,6 +215,12 @@ header{
  
 }
 
+/* View all Area */
+.input-field{
+  background-color: red;
+}
+
+
 
 /* CREATE AREA */
 #course-create-container .btn, .form-group{
@@ -270,6 +276,11 @@ header{
   margin-top: 30px;
 }
 
+#info-container{
+  height: 300px;
+}
+
+
 #image-container img{
   border-radius: 10px;
 }
@@ -292,6 +303,7 @@ header{
   margin-top: 20px;
   font-size: 25px;
   font-weight: bold;
+  
 }
 
 #info-container i{
@@ -317,7 +329,10 @@ header{
   width: 275px;
 }
 
+#modules-list{
+  list-style: upper-roman;
 
+}
 /* Dashboard */
 .dashboard-title-container{
   margin-bottom: 30px;
@@ -334,10 +349,13 @@ header{
   margin-left: 7%;
 }
 
-#leave-course{
-
+.own-courses{
+  text-shadow: 20px 20px 3px #FF2D20;
 }
 
+.courses-participate{
+  text-shadow: 20px 20px 3px #F77E21;
+}
 /* Edit page */
 .img-preview{
   width: 20%;

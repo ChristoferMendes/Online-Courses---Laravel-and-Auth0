@@ -30,13 +30,20 @@
     @if(!$hasUserJoined)
     <form action="/courses/join/{{ $course->id }}" method="POST">
       @csrf
-      <a href="/courses/join/{{ $course->id }}" 
-        class="btn btn-primary" 
-        id="course-submit"
-        onclick="event.preventDefault();
-        this.closest('form').submit();">
-        Join course
-      </a>
+      @auth
+        @if($courseOwner['email'] != Auth::user()->email)
+          <a href="/courses/join/{{ $course->id }}" 
+            class="btn btn-primary" 
+            id="course-submit"
+            onclick="event.preventDefault();
+            this.closest('form').submit();">
+            Join course
+          </a>
+       @endif
+      @endauth
+      @guest
+      <a href="/login" class="btn btn-primary" target="_blank">Join course</a>
+      @endguest
     </form>
     @else
     <a href="/dashboard">
@@ -49,12 +56,27 @@
         <li>{{ $item }}</li>
       @endforeach
     </ul>
+    <h4>Modules and contents: </h4>
+    <ul id="modules-list">
+      @foreach($modules as $module)
+        <li>{{ $module->title }}</li>
+        @foreach($contents as $content)
+          @if($content->module_id == $module->id)
+            <ul>
+              <li>{{  $content->title  }}</li>
+            </ul>
+          @endif
+        @endforeach
+      @endforeach
+    </ul>
   </div>
     <div class="col md-12" id="description-container">
       <h3>About the course:</h1>
-      <p class="course-description">{{ $course->descriptions }}</p>
+      <p class="course-description">{{ $course->descriptions}}</p>
     </div>
   </div>
 </div>
+
+
 
 @endsection

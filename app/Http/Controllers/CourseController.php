@@ -8,21 +8,23 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Module;
+use App\Models\Content;
 
 class CourseController extends Controller
 {
     public function index(){
         $user = Auth::user();
         $search = request("search");
-
-       
+        $module = Module::all();
+        
         if(Auth::check()){
             $userAuth = Auth::user();
             $users = User::where("email", $userAuth->email)->first();
 
             if(!$users){
                 $user = new User;
-                $user->name = Auth::user()->nickname;
+                $user->name = Auth::user()->name;
                 $user->email = Auth::user()->email;
                 $user->save();
             }
@@ -39,7 +41,8 @@ class CourseController extends Controller
         return view('welcome', [    
         "courses" => $courses,
         "search" => $search,
-        "user" => $user
+        "user" => $user,
+        "module" => $module
     ]);
   }
 
@@ -73,7 +76,7 @@ class CourseController extends Controller
     $course = new Course;
     $userAuth = Auth::user();
     $myUser = User::where("email", $userAuth->email)->first();
-
+    
    
    
     $course->title = $request->title;
@@ -113,20 +116,29 @@ class CourseController extends Controller
  public function show($id){
     $course = Course::findOrFail($id);
     $courseOwner = User::where("id", $course->user_id)->first()->toArray();
+    $modules = Module::where("course_id", $id)->get();
+    $contents = Content::all();
 
-    $userAuth = Auth::user();
-    $myUser = User::where("email", $userAuth->email)->first();
-
-    $userCourses = $myUser->coursesAsParticipant;
     $hasUserJoined = false;
+    if(Auth::check()){
+        $userAuth = Auth::user();
+        $myUser = User::where("email", $userAuth->email)->first();
+        $userCourses = $myUser->coursesAsParticipant;
 
-    foreach($userCourses as $userCourse){
-        if($userCourse['id'] == $id){
-            $hasUserJoined = true;
+       
+        foreach($userCourses as $userCourse){
+            if($userCourse['id'] == $id){
+                $hasUserJoined = true;
+            }
         }
-    }
+    }   
+    
 
-    return view("courses.show", ["course" => $course, "courseOwner" => $courseOwner, "hasUserJoined" => $hasUserJoined]);
+    return view("courses.show", ["course" => $course, 
+    "courseOwner" => $courseOwner, 
+    "hasUserJoined" => $hasUserJoined, 
+    "modules" => $modules,
+    "contents" => $contents]);
     
  }
 
@@ -193,14 +205,9 @@ class CourseController extends Controller
 
     $course = Course::findOrFail($id);
 
-    foreach($course->users as $participant){
-        if($participant->id == $myUser->id){
-            return redirect("/dashboard")->with("msg", "You are already in the: " . $course->title);
-            }
-        }
-        $myUser->coursesAsParticipant()->attach($id);
-        return redirect('/dashboard')->with('msg', 'Your presence is confirmed in: ' . $course->title);
-    }
+    $myUser->coursesAsParticipant()->attach($id);
+    return redirect('/dashboard')->with('msg', 'Your presence is confirmed in: ' . $course->title);
+ }
 
 
     public function leaveCourse($id){
@@ -213,4 +220,5 @@ class CourseController extends Controller
         $myUser->coursesAsParticipant()->detach($id);
         return redirect('/dashboard')->with('msg', 'You leave with succes the: ' . $course->title);
     }
+
 }

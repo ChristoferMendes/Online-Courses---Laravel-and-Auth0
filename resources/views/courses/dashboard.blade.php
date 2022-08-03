@@ -5,7 +5,7 @@
 @section("content")
 
 <div class="col-md-10 offset-md-1 dashboard-title-container">
-  <h1>My courses</h1>
+  <h3 class="own-courses">My own courses</h3>
 </div>
 <div class="col-md-10 offset-md-1 dashboard-courses-container">
   @if(count($courses) > 0)
@@ -41,7 +41,7 @@
   @endif
 </div>
 <div class="col-md-10 offset-md-1 dashboard-title-container">
-  <h1>Courses that I'm in</h1>
+  <h3 class="courses-participate">Courses that I participate</h3>
 </div>
 <div class="col-md-10 offset-md-1 dashboard-courses-container">
 @if(count($coursesasparticipant) > 0)
@@ -79,6 +79,7 @@
 @endif
 
 </div>
+
 
 
 @endsection

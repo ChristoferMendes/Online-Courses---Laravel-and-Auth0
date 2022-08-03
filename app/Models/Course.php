@@ -19,7 +19,8 @@ class Course extends Model
         'descriptions',
         'items',
         'image',
-        'user_id'
+        'user_id',
+        'updated_at'
         
     ];
 
@@ -29,6 +30,10 @@ class Course extends Model
 
     public function users(){
         return $this->belongsToMany("App\Models\User");
+    }
+
+    public function modules(){
+        return $this->hasMany("App\Models\Module");
     }
 
 

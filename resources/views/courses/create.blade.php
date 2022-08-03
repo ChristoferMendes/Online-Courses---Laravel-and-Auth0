@@ -39,7 +39,11 @@
     </div>
 
     
+
+    
     <input type="submit" class="btn btn-primary" value="Create Course">
+
+   
 
   </form>
 </div>
