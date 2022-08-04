@@ -40,6 +40,31 @@ class ModuleSeeder extends Seeder
                 'title' => 'Terminal',
                 'descriptions' => 'Getting familliar with the terminal interface',
                 'course_id' => '1',
+            ],
+            [
+                'title' => 'Introduction',
+                'descriptions' => 'Meet Laravel, a PHP Framework!',
+                'course_id' => '2',
+            ],
+            [
+                'title' => 'Routes and Views',
+                'descriptions' => 'Learn how routes and views are created in Laravel in a easy way!',
+                'course_id' => '2',
+            ],
+            [
+                'title' => 'Database and Controller',
+                'descriptions' => 'Meet Eloquent, a ORM and how to deal with Controllers',
+                'course_id' => '2',
+            ],
+            [
+                'title' => 'Intro',
+                'descriptions' => 'What is Node?',
+                'course_id' => '3',
+            ],
+            [
+                'title' => 'Async Node',
+                'descriptions' => 'Commands asynchronous in NodeJS!',
+                'course_id' => '3',
             ]
         ];
 

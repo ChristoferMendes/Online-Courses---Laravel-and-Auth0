@@ -33,9 +33,49 @@ class ContentSeeder extends Seeder
                 'module_id' => '3',
             ],
             [
-                'title' => 'test',
-                'content' => 'test for module 1',
-                'module_id' => '1'
+                'title' => 'Installing Laravel',
+                'content' => 'With the best documentation you will ever see, we can install Laravel easyly',
+                'module_id' => '6',
+            ],
+            [
+                'title' => 'Routes',
+                'content' => 'Learn how to create Routes',
+                'module_id' => '7',
+            ],
+            [
+                'title' => 'Views',
+                'content' => 'What is views? Learn to create templates, and use @extends and @sections',
+                'module_id' => '7',
+            ],
+            [
+                'title' => 'Database',
+                'content' => 'With Eloquent we can connect our database in a fast and great way',
+                'module_id' => '8',
+            ],
+            [
+                'title' => 'Controllers',
+                'content' => 'Learn to manage our first Controller!',
+                'module_id' => '8',
+            ],
+            [
+                'title' => 'A Javascript runtime!',
+                'content' => 'Why Node?',
+                'module_id' => '9',
+            ],
+            [
+                'title' => 'EventLoop',
+                'content' => 'Learn how EventLoop works',
+                'module_id' => '9',
+            ],
+            [
+                'title' => 'Async examples',
+                'content' => 'Few examples on how async works',
+                'module_id' => '10',
+            ],
+            [
+                'title' => 'Async functions in the code',
+                'content' => 'Putting all the theory on paper! (or, in this case, computer)',
+                'module_id' => '10',
             ]
         ];
 
